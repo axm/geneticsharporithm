@@ -91,6 +91,7 @@
     <Compile Include="IChromosomeComparer.cs" />
     <Compile Include="ICrossOver.cs" />
     <Compile Include="IFitnessEvaluator.cs" />
+    <Compile Include="IKiller.cs" />
     <Compile Include="IMutate.cs" />
     <Compile Include="IPopulationGenerator.cs" />
     <Compile Include="Population.cs" />
