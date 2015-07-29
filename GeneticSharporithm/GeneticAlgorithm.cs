@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace GeneticSharporithm
 {
+    public delegate void BeforeRunEventHandler(object sender, EventArgs e);
+    public delegate void AfterRunEventHandler(object sender, EventArgs e);
+
     public class GeneticAlgorithm<V>
     {
         public int Generations { get; private set; }
@@ -12,6 +15,16 @@ namespace GeneticSharporithm
         public ICrossOver<V> CrossOver { get; private set; }
         public double MutationRate { get; private set; }
         private Random Random = new Random();
+
+        /// <summary>
+        /// Executed before each generation run.
+        /// </summary>
+        public event BeforeRunEventHandler BeforeRun;
+
+        /// <summary>
+        /// Executed after each generation run.
+        /// </summary>
+        public event AfterRunEventHandler AfterRun;
 
         internal GeneticAlgorithm(GeneticAlgorithmBuilder<V> builder)
         {
