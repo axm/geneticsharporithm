@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeneticSharporithm
 {
@@ -17,7 +13,7 @@ namespace GeneticSharporithm
         public ICrossOver<U> CrossOver { get; private set; }
         public IFitnessEvaluator<U> FitnessEvaluator { get; private set; }
         public IChromosomeComparer<U> ChromosomeComparer { get; private set; }
-
+        public IKiller<U> Killer { get; private set; }
 
         public GeneticAlgorithmBuilder<U> SetPopulation(Population<U> population)
         {
@@ -82,6 +78,15 @@ namespace GeneticSharporithm
             return this;
         }
 
+        public GeneticAlgorithmBuilder<U> SetKiller(IKiller<U> killer)
+        {
+            Contract.Requires<ArgumentNullException>(killer != null, "Killer cannot be null.");
+
+            Killer = killer;
+
+            return this;
+        }
+
         public GeneticAlgorithm<U> Build()
         {
             string message;
@@ -98,9 +103,44 @@ namespace GeneticSharporithm
         {
             message = null;
 
+            if(Population == null)
+            {
+                message = "Population not set.";
+
+                return false;
+            }
+
             if (Generations <= 0)
             {
-                message = "Generations must be positive";
+                message = "Generations count must be positive";
+
+                return false;
+            }
+            
+            if(FitnessEvaluator == null)
+            {
+                message = "Fitness evaluator not set.";
+
+                return false;
+            }
+
+            if (Killer == null)
+            {
+                message = "Killer not set.";
+
+                return false;
+            }
+
+            if(ChromosomeComparer == null)
+            {
+                message = "Comparer not set.";
+
+                return false;
+            }
+
+            if(CrossOver == null)
+            {
+                message = "CrossOver not set.";
 
                 return false;
             }
