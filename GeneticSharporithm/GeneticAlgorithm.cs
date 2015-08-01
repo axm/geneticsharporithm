@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace GeneticSharporithm
 {
+    public delegate void GeneticEventWithGeneticEventArgs<V>(GeneticAlgorithm<V> sender, GeneticEventArgs e);
     public delegate void GeneticEvent<V>(GeneticAlgorithm<V> sender, EventArgs e);
 
     public class GeneticAlgorithm<V>
@@ -21,12 +22,12 @@ namespace GeneticSharporithm
         /// <summary>
         /// Executed before each generation run.
         /// </summary>
-        public event GeneticEvent<V> BeforeRun;
+        public event GeneticEventWithGeneticEventArgs<V> BeforeRun;
 
         /// <summary>
         /// Executed after each generation run.
         /// </summary>
-        public event GeneticEvent<V> AfterRun;
+        public event GeneticEventWithGeneticEventArgs<V> AfterRun;
         public event GeneticEvent<V> BeforeKill;
         public event GeneticEvent<V> AfterKill;
         public event GeneticEvent<V> BeforeMutate;
@@ -55,7 +56,7 @@ namespace GeneticSharporithm
             {
                 if(BeforeRun != null)
                 {
-                    BeforeRun(this, EventArgs.Empty);
+                    BeforeRun(this, new GeneticEventArgs(i));
                 }
 
                 foreach(var chromosome in Population.Chromosomes)
@@ -127,7 +128,7 @@ namespace GeneticSharporithm
 
                 if(AfterRun != null)
                 {
-                    AfterRun(this, EventArgs.Empty);
+                    AfterRun(this, new GeneticEventArgs(i));
                 }
             }
         }

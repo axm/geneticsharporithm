@@ -88,6 +88,7 @@
     <Compile Include="ChromosomeComparer.cs" />
     <Compile Include="GeneticAlgorithm.cs" />
     <Compile Include="GeneticAlgorithmBuilder.cs" />
+    <Compile Include="GeneticEventArgs.cs" />
     <Compile Include="IChromosomeComparer.cs" />
     <Compile Include="ICrossOver.cs" />
     <Compile Include="IFitnessEvaluator.cs" />
