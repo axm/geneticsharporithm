@@ -29,6 +29,8 @@ namespace GeneticSharporithmProgram
 
             var selector = new Selector(evaluator, 20, Total);
 
+            var killer = new ChromosomeKiller(10);
+
             var geneticAlgorithm = new GeneticAlgorithmBuilder<string>()
                 .SetPopulation(population)
                 .SetFitnessEvaluator(evaluator)
@@ -37,6 +39,7 @@ namespace GeneticSharporithmProgram
                 .SetMutator(mutator)
                 .SetCrossOver(crossOver)
                 .SetSelection(selector)
+                .SetKiller(killer)
                 .Build();
 
             geneticAlgorithm.BeforeRun += GeneticAlgorithm_BeforeRun;
