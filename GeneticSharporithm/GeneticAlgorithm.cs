@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace GeneticSharporithm
 {
-    public delegate void BeforeRunEventHandler(object sender, EventArgs e);
-    public delegate void AfterRunEventHandler(object sender, EventArgs e);
+    public delegate void GeneticEvent<V>(GeneticAlgorithm<V> sender, EventArgs e);
 
     public class GeneticAlgorithm<V>
     {
@@ -19,12 +18,19 @@ namespace GeneticSharporithm
         /// <summary>
         /// Executed before each generation run.
         /// </summary>
-        public event BeforeRunEventHandler BeforeRun;
+        public event GeneticEvent<V> BeforeRun;
 
         /// <summary>
         /// Executed after each generation run.
         /// </summary>
-        public event AfterRunEventHandler AfterRun;
+        public event GeneticEvent<V> AfterRun;
+
+        public event GeneticEvent<V> BeforeKill;
+        public event GeneticEvent<V> AfterKill;
+        public event GeneticEvent<V> BeforeMutate;
+        public event GeneticEvent<V> AfterMutate;
+        public event GeneticEvent<V> BeforeCrossOver;
+        public event GeneticEvent<V> AfterCrossOver;
 
         internal GeneticAlgorithm(GeneticAlgorithmBuilder<V> builder)
         {
@@ -40,10 +46,30 @@ namespace GeneticSharporithm
         {
             for (int i = 0; i < Generations; i++)
             {
+                if(BeforeRun != null)
+                {
+                    BeforeRun(this, EventArgs.Empty);
+                }
+
                 var chromosomes = (List<Chromosome<V>>)Population.Chromosomes;
                 chromosomes.Sort(new ChromosomeComparer<V>());
 
+                if(BeforeKill != null)
+                {
+                    BeforeKill(this, EventArgs.Empty);
+                }
+
                 Kill(chromosomes, 10);
+
+                if(AfterKill != null)
+                {
+                    AfterKill(this, EventArgs.Empty);
+                }
+
+                if(BeforeCrossOver != null)
+                {
+                    BeforeCrossOver(this, EventArgs.Empty);
+                }
 
                 while(chromosomes.Count < Population.TargetSize)
                 {
@@ -58,26 +84,28 @@ namespace GeneticSharporithm
                     chromosomes.Add(CrossOver.CrossOver(c1, c2));
                 }
 
+                if(AfterCrossOver != null)
+                {
+                    AfterCrossOver(this, EventArgs.Empty);
+                }
+
+                if(BeforeMutate != null)
+                {
+                    BeforeMutate(this, EventArgs.Empty);
+                }
+
                 MutateStep(chromosomes);
 
-                PrintOverview(chromosomes);
+                if(AfterMutate != null)
+                {
+                    AfterMutate(this, EventArgs.Empty);
+                }
+
+                if(AfterRun != null)
+                {
+                    AfterRun(this, EventArgs.Empty);
+                }
             }
-        }
-
-        private void PrintOverview(List<Chromosome<V>> chromosomes)
-        {
-            var average = 0d;
-
-            foreach(var chromosome in chromosomes)
-            {
-                average += chromosome.Fitness;
-            }
-
-            average /= chromosomes.Count;
-
-            var output = $"Best: ({chromosomes[0].Genes}, {chromosomes[0].Fitness}), Average fitness: {average}";
-
-            Console.WriteLine(output);
         }
 
         private IList<Tuple<Chromosome<V>, Chromosome<V>>> Select(List<Chromosome<V>> chromosomes, int count)
