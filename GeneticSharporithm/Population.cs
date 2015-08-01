@@ -10,12 +10,33 @@ namespace GeneticSharporithm
 {
     public class Population<T>
     {
+        // TODO: This should be hidde or read only
         public IList<Chromosome<T>> Chromosomes { get; set; } = new List<Chromosome<T>>();
         public readonly int TargetSize;
         private IFitnessEvaluator<T> Evaluator { get; set; }
 
+        public int ChromosomeCount
+        {
+            get
+            {
+                return Chromosomes.Count;
+            }
+        }
+
+        public IReadOnlyList<Chromosome<T>> Chromosomes_RO
+        {
+            get
+            {
+                return new ReadOnlyCollection<Chromosome<T>>(Chromosomes);
+            }
+        }
+
         public Population(int count, IPopulationGenerator<T> generator, IFitnessEvaluator<T> evaluator)
         {
+            Contract.Requires<ArgumentOutOfRangeException>(count > 0);
+            Contract.Requires<ArgumentNullException>(generator != null);
+            Contract.Requires<ArgumentNullException>(evaluator != null);
+
             TargetSize = count;
             Evaluator = evaluator;
 
@@ -31,6 +52,8 @@ namespace GeneticSharporithm
 
         public Population(IList<Chromosome<T>> chromosomes)
         {
+            Contract.Requires<ArgumentNullException>(chromosomes != null);
+
             Chromosomes = chromosomes;
 
             TargetSize = chromosomes.Count;
@@ -52,6 +75,8 @@ namespace GeneticSharporithm
 
         public void Sort(IComparer<Chromosome<string>> comparer)
         {
+            Contract.Requires<ArgumentNullException>(comparer != null);
+
             var list = (List<Chromosome<string>>)Chromosomes;
 
             list.Sort(comparer);
