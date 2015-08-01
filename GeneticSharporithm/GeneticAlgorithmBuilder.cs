@@ -12,8 +12,8 @@ namespace GeneticSharporithm
         public IMutate<U> Mutator { get; private set; }
         public ICrossOver<U> CrossOver { get; private set; }
         public IFitnessEvaluator<U> FitnessEvaluator { get; private set; }
-        public IChromosomeComparer<U> ChromosomeComparer { get; private set; }
         public IKiller<U> Killer { get; private set; }
+        public ISelection<U> Selector { get; private set; }
 
         public GeneticAlgorithmBuilder<U> SetPopulation(Population<U> population)
         {
@@ -68,12 +68,10 @@ namespace GeneticSharporithm
 
             return this;
         }
-
-        public GeneticAlgorithmBuilder<U> SetChromosomeComparer(IChromosomeComparer<U> chromosomeComparer)
+        
+        public GeneticAlgorithmBuilder<U> SetSelection(ISelection<U> selection)
         {
-            Contract.Requires<ArgumentNullException>(chromosomeComparer != null, "Argument cannot be null.");
-
-            ChromosomeComparer = chromosomeComparer;
+            Selector = selection;
 
             return this;
         }
@@ -131,16 +129,16 @@ namespace GeneticSharporithm
                 return false;
             }
 
-            if(ChromosomeComparer == null)
+            if(CrossOver == null)
             {
-                message = "Comparer not set.";
+                message = "CrossOver not set.";
 
                 return false;
             }
 
-            if(CrossOver == null)
+            if(Selector == null)
             {
-                message = "CrossOver not set.";
+                message = "Selection not set.";
 
                 return false;
             }

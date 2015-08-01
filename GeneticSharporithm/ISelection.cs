@@ -19,6 +19,6 @@ namespace GeneticSharporithm
         /// <remarks>
         /// <paramref name="chromosomes"/> must have at least one element.
         /// </remarks>
-        IList<Chromosome<V>> Select(IList<Chromosome<V>> chromosomes);
+        IEnumerable<Tuple<Chromosome<V>, Chromosome<V>>> Select(IList<Chromosome<V>> chromosomes);
     }
 }

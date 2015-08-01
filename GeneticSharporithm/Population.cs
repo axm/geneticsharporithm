@@ -10,7 +10,7 @@ namespace GeneticSharporithm
 {
     public class Population<T>
     {
-        // TODO: This should be hidde or read only
+        // TODO: This should be hidden or read only
         public IList<Chromosome<T>> Chromosomes { get; set; } = new List<Chromosome<T>>();
         public readonly int TargetSize;
         private IFitnessEvaluator<T> Evaluator { get; set; }

@@ -7,6 +7,6 @@ namespace GeneticSharporithm
     /// </summary>
     public interface IKiller<T>
     {
-        void Kill(ICollection<Chromosome<T>> chromosomes);
+        void Kill(Population<T> chromosomes);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace GeneticSharporithm
@@ -12,6 +13,8 @@ namespace GeneticSharporithm
         public IFitnessEvaluator<V> Evaluator { get; private set; }
         public IMutate<V> Mutator { get; private set; }
         public ICrossOver<V> CrossOver { get; private set; }
+        public ISelection<V> Selector { get; private set; }
+        public IKiller<V> Killer { get; private set; }
         public double MutationRate { get; private set; }
         private Random Random = new Random();
 
@@ -24,13 +27,15 @@ namespace GeneticSharporithm
         /// Executed after each generation run.
         /// </summary>
         public event GeneticEvent<V> AfterRun;
-
         public event GeneticEvent<V> BeforeKill;
         public event GeneticEvent<V> AfterKill;
         public event GeneticEvent<V> BeforeMutate;
         public event GeneticEvent<V> AfterMutate;
         public event GeneticEvent<V> BeforeCrossOver;
         public event GeneticEvent<V> AfterCrossOver;
+        public event GeneticEvent<V> BeforeSelection;
+        public event GeneticEvent<V> AfterSelection;
+
 
         internal GeneticAlgorithm(GeneticAlgorithmBuilder<V> builder)
         {
@@ -40,6 +45,8 @@ namespace GeneticSharporithm
             MutationRate = builder.MutationRate;
             Mutator = builder.Mutator;
             CrossOver = builder.CrossOver;
+            Selector = builder.Selector;
+            Killer = builder.Killer;
         }
 
         public void Execute()
@@ -51,38 +58,55 @@ namespace GeneticSharporithm
                     BeforeRun(this, EventArgs.Empty);
                 }
 
-                var chromosomes = (List<Chromosome<V>>)Population.Chromosomes;
-                chromosomes.Sort(new ChromosomeComparer<V>());
+                foreach(var chromosome in Population.Chromosomes)
+                {
+                    chromosome.Fitness = Evaluator.ComputeFitness(chromosome.Genes);
+                }
 
-                if(BeforeKill != null)
+                Population.Chromosomes = Population.Chromosomes.OrderByDescending(x => x.Fitness).ToList();
+
+                var best = Population.Chromosomes_RO[0];
+
+                if (BeforeKill != null)
                 {
                     BeforeKill(this, EventArgs.Empty);
                 }
-
-                Kill(chromosomes, 10);
+                
+                Killer.Kill(Population);
+                
+                //Kill(Population, 10);
 
                 if(AfterKill != null)
                 {
                     AfterKill(this, EventArgs.Empty);
                 }
 
-                if(BeforeCrossOver != null)
+                var selected = Selector.Select(Population.Chromosomes);
+
+                if (BeforeCrossOver != null)
                 {
                     BeforeCrossOver(this, EventArgs.Empty);
                 }
 
-                while(chromosomes.Count < Population.TargetSize)
+                foreach(var pair in selected)
                 {
-                    var index = Random.Next(0, 10);
+                    var offspring = CrossOver.CrossOver(pair.Item1, pair.Item2);
 
-                    var c1 = chromosomes[index];
-
-                    index = Random.Next(0, chromosomes.Count);
-
-                    var c2 = chromosomes[index];
-
-                    chromosomes.Add(CrossOver.CrossOver(c1, c2));
+                    Population.AddChromosome(offspring);
                 }
+
+                //while(chromosomes.Count < Population.TargetSize)
+                //{
+                //    var index = Random.Next(0, 10);
+
+                //    var c1 = chromosomes[index];
+
+                //    index = Random.Next(0, chromosomes.Count);
+
+                //    var c2 = chromosomes[index];
+
+                //    chromosomes.Add(CrossOver.CrossOver(c1, c2));
+                //}
 
                 if(AfterCrossOver != null)
                 {
@@ -94,7 +118,7 @@ namespace GeneticSharporithm
                     BeforeMutate(this, EventArgs.Empty);
                 }
 
-                MutateStep(chromosomes);
+                MutateStep(Population);
 
                 if(AfterMutate != null)
                 {
@@ -153,7 +177,7 @@ namespace GeneticSharporithm
             return selected;
         }
 
-        private void Cross(IList<Tuple<Chromosome<V>, Chromosome<V>>> matingChromosomes, IList<Chromosome<V>> chromosomes, int count)
+        private void Cross(IList<Tuple<Chromosome<V>, Chromosome<V>>> matingChromosomes, IList<Chromosome<V>> chromosomes)
         {
             foreach(var tuple in matingChromosomes)
             {
@@ -164,21 +188,33 @@ namespace GeneticSharporithm
             }
         }
 
-        protected void Kill(List<Chromosome<V>> chromosomes, int count)
+        protected void Kill(Population<V> population, int count)
         {
-            chromosomes.RemoveRange(chromosomes.Count - count - 1, count);
+
+            var chromosomes = population.Chromosomes_RO;
+
+            var i = 0;
+
+            while(i++ < count)
+            {
+                population.RemoveChromosome(population.Chromosomes_RO.Last());
+            }
         }
 
-        protected void MutateStep(IList<Chromosome<V>> chromosomes)
+        private void MutateStep(Population<V> population)
         {
-            for(int i = 0; i < chromosomes.Count; i++)
+            var chromosomes = population.Chromosomes;
+
+            for (int i = 0; i < chromosomes.Count; i++)
             {
                 var c = chromosomes[i];
 
-                if(Random.NextDouble() > (1 - MutationRate))
+                if (Random.NextDouble() > (1 - MutationRate))
                 {
                     c = Mutator.Mutate(c);
                     c.Fitness = Evaluator.ComputeFitness(c.Genes);
+
+                    chromosomes[i] = c;
                 }
             }
         }
