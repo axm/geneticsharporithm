@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeneticSharporithm
 {
-    public class Chromosome<T>
+    public class Chromosome<T> : IEquatable<T>
     {
         public T Genes { get; private set; }
         public double Fitness { get; set; }
@@ -22,6 +22,13 @@ namespace GeneticSharporithm
         public override string ToString()
         {
             return $"{Genes.ToString()}, {Fitness}";
+        }
+
+        public bool Equals(T other)
+        {
+            Contract.Requires<ArgumentNullException>(other != null);
+
+            return Genes.Equals(other);
         }
     }
 }
