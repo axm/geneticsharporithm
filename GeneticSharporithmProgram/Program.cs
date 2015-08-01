@@ -34,7 +34,7 @@ namespace GeneticSharporithmProgram
             var geneticAlgorithm = new GeneticAlgorithmBuilder<string>()
                 .SetPopulation(population)
                 .SetFitnessEvaluator(evaluator)
-                .SetGenerations(10000)
+                .SetGenerations(100000)
                 .SetMutationRate(0.05)
                 .SetMutator(mutator)
                 .SetCrossOver(crossOver)
@@ -50,12 +50,12 @@ namespace GeneticSharporithmProgram
 
         }
 
-        private static void GeneticAlgorithm_BeforeRun<V>(GeneticAlgorithm<V> geneticAlgorithm, EventArgs e)
+        private static void GeneticAlgorithm_BeforeRun<V>(GeneticAlgorithm<V> geneticAlgorithm, GeneticEventArgs e)
         {
             //throw new NotImplementedException();
         }
 
-        private static void GeneticAlgorithm_AfterRun<V>(GeneticAlgorithm<V> geneticAlgorithm, EventArgs e)
+        private static void GeneticAlgorithm_AfterRun<V>(GeneticAlgorithm<V> geneticAlgorithm, GeneticEventArgs e)
         {
             var chromosomes = geneticAlgorithm.Population.Chromosomes;
 
@@ -68,7 +68,7 @@ namespace GeneticSharporithmProgram
 
             average /= chromosomes.Count;
 
-            var output = $"Best: ({chromosomes[0].Genes}, {chromosomes[0].Fitness}), Average fitness: {average}";
+            var output = $"Generation:({e.Generation}), Best: ({chromosomes[0].Genes}, {chromosomes[0].Fitness}), Average fitness: {average}";
 
             Console.WriteLine(output);
         }
