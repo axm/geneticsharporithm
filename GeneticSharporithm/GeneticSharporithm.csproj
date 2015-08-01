@@ -96,6 +96,7 @@
     <Compile Include="IMutate.cs" />
     <Compile Include="IPopulationGenerator.cs" />
     <Compile Include="ISelection.cs" />
+    <Compile Include="ISolution.cs" />
     <Compile Include="Population.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

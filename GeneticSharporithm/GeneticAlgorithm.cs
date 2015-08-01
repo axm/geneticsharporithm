@@ -16,6 +16,7 @@ namespace GeneticSharporithm
         public ICrossOver<V> CrossOver { get; private set; }
         public ISelection<V> Selector { get; private set; }
         public IKiller<V> Killer { get; private set; }
+        public ISolution<V> Solution { get; private set; }
         public double MutationRate { get; private set; }
         private Random Random = new Random();
 
@@ -48,6 +49,7 @@ namespace GeneticSharporithm
             CrossOver = builder.CrossOver;
             Selector = builder.Selector;
             Killer = builder.Killer;
+            Solution = builder.Solution;
         }
 
         public void Execute()
@@ -95,19 +97,6 @@ namespace GeneticSharporithm
 
                     Population.AddChromosome(offspring);
                 }
-
-                //while(chromosomes.Count < Population.TargetSize)
-                //{
-                //    var index = Random.Next(0, 10);
-
-                //    var c1 = chromosomes[index];
-
-                //    index = Random.Next(0, chromosomes.Count);
-
-                //    var c2 = chromosomes[index];
-
-                //    chromosomes.Add(CrossOver.CrossOver(c1, c2));
-                //}
 
                 if(AfterCrossOver != null)
                 {

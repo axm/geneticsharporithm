@@ -14,6 +14,7 @@ namespace GeneticSharporithm
         public IFitnessEvaluator<U> FitnessEvaluator { get; private set; }
         public IKiller<U> Killer { get; private set; }
         public ISelection<U> Selector { get; private set; }
+        public ISolution<U> Solution { get; private set; }
 
         public GeneticAlgorithmBuilder<U> SetPopulation(Population<U> population)
         {
@@ -85,6 +86,13 @@ namespace GeneticSharporithm
             return this;
         }
 
+        public GeneticAlgorithmBuilder<U> SetSolution(ISolution<U> solution)
+        {
+            Solution = solution;
+
+            return this;
+        }
+
         public GeneticAlgorithm<U> Build()
         {
             string message;
@@ -139,6 +147,13 @@ namespace GeneticSharporithm
             if(Selector == null)
             {
                 message = "Selection not set.";
+
+                return false;
+            }
+
+            if(Solution == null)
+            {
+                message = "Solution not set.";
 
                 return false;
             }
