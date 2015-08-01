@@ -36,7 +36,7 @@ namespace GeneticSharporithmProgram
                     evaluation += 1;
                 } else
                 {
-                    evaluation = 1d / (Math.Abs(targetValue - geneValue));
+                    evaluation = 1d / (1.5 * Math.Abs(targetValue - geneValue));
                 }
             }
 
