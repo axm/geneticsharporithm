@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace GeneticSharporithmProgram
 {
-    class SinglePointCrossOver : ICrossOver<string>
+    public class SinglePointCrossOver : ICrossOver<string>
     {
         private readonly Random Random;
+        private readonly IFitnessEvaluator<string> Evaluator;
 
-        public SinglePointCrossOver(Random random)
+        public SinglePointCrossOver(Random random, IFitnessEvaluator<string> evaluator)
         {
             Random = random;
+            Evaluator = evaluator;
         }
 
         Chromosome<string> ICrossOver<string>.CrossOver(Chromosome<string> parent1, Chromosome<string> parent2)
@@ -21,16 +23,19 @@ namespace GeneticSharporithmProgram
             var parent1Genes = parent1.Genes;
             var parent2Genes = parent2.Genes;
 
-            var index = Random.Next(0, parent1.Genes.Length);
+            var index = Random.Next(1, parent1.Genes.Length);
 
             var newChars = new char[parent1Genes.Length];
 
-            for(int i = 0; i < newChars.Length; i++)
+            for (int i = 0; i < newChars.Length; i++)
             {
                 newChars[i] = i >= index ? parent2Genes[i] : parent1Genes[i];
             }
 
-            return new Chromosome<string>(new string(newChars));
+            var chromosome = new Chromosome<string>(new string(newChars));
+            chromosome.Fitness = Evaluator.ComputeFitness(chromosome.Genes);
+
+            return chromosome;
         }
     }
 }
