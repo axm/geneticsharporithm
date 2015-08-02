@@ -91,14 +91,5 @@ namespace GeneticSharporithm
 
             Chromosomes.Remove(chromosome);
         }
-
-        public void Sort(IComparer<Chromosome<string>> comparer)
-        {
-            Contract.Requires<ArgumentNullException>(comparer != null);
-
-            var list = (List<Chromosome<string>>)Chromosomes;
-
-            list.Sort(comparer);
-        }
     }
 }
