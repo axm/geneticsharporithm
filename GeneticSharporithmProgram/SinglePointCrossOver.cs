@@ -23,7 +23,7 @@ namespace GeneticSharporithmProgram
             var parent1Genes = parent1.Genes;
             var parent2Genes = parent2.Genes;
 
-            var index = Random.Next(1, parent1.Genes.Length);
+            var index = Random.Next(0, parent1.Genes.Length);
 
             var newChars = new char[parent1Genes.Length];
 
