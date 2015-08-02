@@ -9,7 +9,10 @@ namespace GeneticSharporithm
 {
     public class Chromosome<T> : IEquatable<T>
     {
+        // TODO: Make this readonly
         public T Genes { get; private set; }
+
+        // TODO: Make this readonly
         public double Fitness { get; set; }
 
         public Chromosome(T genes) : this(genes, 0)
