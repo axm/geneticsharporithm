@@ -37,7 +37,7 @@ namespace GeneticSharporithm
         public event GeneticEvent<V> AfterCrossOver;
         public event GeneticEvent<V> BeforeSelection;
         public event GeneticEvent<V> AfterSelection;
-
+        public event GeneticEvent<V> OnSolution;
 
         internal GeneticAlgorithm(GeneticAlgorithmBuilder<V> builder)
         {
@@ -67,8 +67,6 @@ namespace GeneticSharporithm
                 }
 
                 Population.Chromosomes = Population.Chromosomes.OrderByDescending(x => x.Fitness).ToList();
-
-                var best = Population.Chromosomes_RO[0];
 
                 if (BeforeKill != null)
                 {
@@ -118,6 +116,16 @@ namespace GeneticSharporithm
                 if(AfterRun != null)
                 {
                     AfterRun(this, new GeneticEventArgs(i));
+                }
+                
+                if (Solution.IsSolution(Population.Best))
+                {
+                    if (OnSolution != null)
+                    {
+                        OnSolution(this, EventArgs.Empty);
+                    }
+
+                    return;
                 }
             }
         }
