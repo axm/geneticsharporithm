@@ -12,7 +12,11 @@ namespace GeneticSharporithm
         public T Genes { get; private set; }
         public double Fitness { get; set; }
 
-        public Chromosome(T genes)
+        public Chromosome(T genes) : this(genes, 0)
+        {
+        }
+
+        public Chromosome(T genes, double Fitness)
         {
             Contract.Requires<ArgumentNullException>(genes != null, "Genes cannot be null");
 
