@@ -78,15 +78,6 @@ namespace GeneticSharporithm
             }
         }
 
-        public Population(IList<Chromosome<T>> chromosomes)
-        {
-            Contract.Requires<ArgumentNullException>(chromosomes != null);
-
-            Chromosomes = chromosomes;
-
-            TargetSize = chromosomes.Count;
-        }
-
         public void AddChromosome(Chromosome<T> chromosome)
         {
             Contract.Requires<ArgumentNullException>(chromosome != null, "Chromosome cannot be null.");
