@@ -15,7 +15,7 @@ namespace GeneticSharporithm
         /// 
         /// </summary>
         /// <param name="chromosomes"></param>
-        /// <returns></returns>
+        /// <returns>An enumeration of chromosome pairs.</returns>
         /// <remarks>
         /// <paramref name="chromosomes"/> must have at least one element.
         /// </remarks>

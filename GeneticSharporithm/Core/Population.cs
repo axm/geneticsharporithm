@@ -12,6 +12,10 @@ namespace GeneticSharporithm
     {
         // TODO: This should be hidden or read only
         public IList<Chromosome<T>> Chromosomes { get; set; } = new List<Chromosome<T>>();
+        
+        /// <summary>
+        /// Represents how big this population should be.
+        /// </summary>
         public readonly int TargetSize;
         private IFitnessEvaluator<T> Evaluator { get; set; }
 
@@ -68,6 +72,8 @@ namespace GeneticSharporithm
             TargetSize = count;
             Evaluator = evaluator;
 
+            // TODO: This really shouldn't be here. We should instead pass the 
+            // population
             for(var i = 0; i < count; i++)
             {
                 var value = generator.Generate();
@@ -76,6 +82,14 @@ namespace GeneticSharporithm
 
                 Chromosomes.Add(chromosome);
             }
+        }
+
+        public Population(IEnumerable<Chromosome<T>> chromosomes)
+        {
+            Contract.Requires<ArgumentNullException>(chromosomes != null);
+
+            Chromosomes = chromosomes.ToList();
+            TargetSize = Chromosomes.Count;
         }
 
         public void AddChromosome(Chromosome<T> chromosome)
