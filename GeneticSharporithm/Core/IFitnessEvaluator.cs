@@ -8,6 +8,6 @@ namespace GeneticSharporithm
 {
     public interface IFitnessEvaluator<T>
     {
-        double ComputeFitness(T chromosome);
+        double ComputeFitness(T genes);
     }
 }
