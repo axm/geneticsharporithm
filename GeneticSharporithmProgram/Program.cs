@@ -27,16 +27,16 @@ namespace GeneticSharporithmProgram
 
             var crossOver = new SinglePointCrossOver(random, evaluator);
 
-            var selector = new Selector(evaluator, 20, Total);
+            var selector = new Selector(evaluator, 10, Total);
 
-            var killer = new ChromosomeKiller(10);
+            var killer = new ChromosomeKiller(5);
 
             var solution = new Solution();
 
             var geneticAlgorithm = new GeneticAlgorithmBuilder<string>()
                 .SetPopulation(population)
                 .SetFitnessEvaluator(evaluator)
-                .SetGenerations(100000)
+                .SetGenerations(150000)
                 .SetMutationRate(0.05)
                 .SetMutator(mutator)
                 .SetCrossOver(crossOver)
@@ -49,7 +49,14 @@ namespace GeneticSharporithmProgram
 
             geneticAlgorithm.AfterRun += GeneticAlgorithm_AfterRun;
 
+            geneticAlgorithm.OnSolution += GeneticAlgorithm_OnSolution;
+
             geneticAlgorithm.Execute();
+
+        }
+
+        private static void GeneticAlgorithm_OnSolution(GeneticAlgorithm<string> sender, EventArgs e)
+        {
 
         }
 

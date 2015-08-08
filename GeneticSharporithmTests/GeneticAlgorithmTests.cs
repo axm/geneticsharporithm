@@ -29,17 +29,5 @@ namespace GeneticSharporithm.Tests
 
 
         }
-
-        [Test]
-        public void ExecuteTest()
-        {
-
-        }
-
-        [Test]
-        public void ExecuteTest1()
-        {
-
-        }
     }
 }

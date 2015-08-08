@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using GeneticSharporithm;
 using System;
 using System.Collections.Generic;
@@ -8,55 +9,55 @@ using System.Threading.Tasks;
 
 namespace GeneticSharporithm.Tests
 {
-    [TestClass()]
+    [TestFixture()]
     public class GeneticAlgorithmBuilderTests
     {
-        [TestMethod()]
+        [Test]
         public void SetPopulationTest()
         {
 
         }
 
-        [TestMethod()]
-        public void SetGenerationsTest()
-        {
+        //[TestMethod()]
+        //public void SetGenerationsTest()
+        //{
 
-        }
+        //}
 
-        [TestMethod()]
-        public void SetMutationRateTest()
-        {
+        //[TestMethod()]
+        //public void SetMutationRateTest()
+        //{
 
-        }
+        //}
 
-        [TestMethod()]
-        public void SetMutatorTest()
-        {
+        //[TestMethod()]
+        //public void SetMutatorTest()
+        //{
 
-        }
+        //}
 
-        [TestMethod()]
-        public void SetCrossOverTest()
-        {
+        //[TestMethod()]
+        //public void SetCrossOverTest()
+        //{
 
-        }
+        //}
 
-        [TestMethod()]
-        public void SetFitnessEvaluatorTest()
-        {
+        //[TestMethod()]
+        //public void SetFitnessEvaluatorTest()
+        //{
 
-        }
+        //}
 
-        [TestMethod()]
-        public void SetChromosomeComparerTest()
-        {
+        //[TestMethod()]
+        //public void SetChromosomeComparerTest()
+        //{
 
-        }
+        //}
 
-        [TestMethod()]
-        public void BuildTest()
-        {
+        //[TestMethod()]
+        //public void BuildTest()
+        //{
 
-        }
+        //}
     }
 }
