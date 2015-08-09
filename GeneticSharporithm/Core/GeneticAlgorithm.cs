@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace GeneticSharporithm
 {
@@ -75,8 +76,6 @@ namespace GeneticSharporithm
                 
                 Killer.Kill(Population);
                 
-                //Kill(Population, 10);
-
                 if(AfterKill != null)
                 {
                     AfterKill(this, EventArgs.Empty);
@@ -127,75 +126,6 @@ namespace GeneticSharporithm
 
                     return;
                 }
-            }
-        }
-
-        private IList<Tuple<Chromosome<V>, Chromosome<V>>> Select(List<Chromosome<V>> chromosomes, int count)
-        {
-            var tempSelected = new List<Chromosome<V>>();
-
-            var selected = new List<Tuple<Chromosome<V>, Chromosome<V>>>();
-
-            var mateIndex = Random.Next(5, chromosomes.Count / 2);
-            
-            selected.Add(Tuple.Create(chromosomes[0], chromosomes[mateIndex]));
-
-            mateIndex = Random.Next(5, chromosomes.Count / 2);
-            selected.Add(Tuple.Create(chromosomes[1], chromosomes[mateIndex]));
-
-
-            mateIndex = Random.Next(5, chromosomes.Count / 2);
-            selected.Add(Tuple.Create(chromosomes[2], chromosomes[mateIndex]));
-
-
-            mateIndex = Random.Next(5, chromosomes.Count / 2);
-            selected.Add(Tuple.Create(chromosomes[3], chromosomes[mateIndex]));
-
-
-            mateIndex = Random.Next(5, chromosomes.Count / 2);
-            selected.Add(Tuple.Create(chromosomes[4], chromosomes[mateIndex]));
-
-            while (tempSelected.Count < count - 10)
-            {
-                var index = Random.Next(0, chromosomes.Count);
-
-                var c1 = chromosomes[index];
-
-                if(!tempSelected.Contains(c1))
-                {
-                    tempSelected.Add(c1);
-                }
-            }
-
-            for(var i = 0; i < tempSelected.Count;)
-            {
-                selected.Add(Tuple.Create(tempSelected[i++], tempSelected[i++]));
-            }
-
-            return selected;
-        }
-
-        private void Cross(IList<Tuple<Chromosome<V>, Chromosome<V>>> matingChromosomes, IList<Chromosome<V>> chromosomes)
-        {
-            foreach(var tuple in matingChromosomes)
-            {
-                var child = CrossOver.CrossOver(tuple.Item1, tuple.Item2);
-                child.Fitness = Evaluator.ComputeFitness(child.Genes);
-
-                chromosomes.Add(child);
-            }
-        }
-
-        protected void Kill(Population<V> population, int count)
-        {
-
-            var chromosomes = population.Chromosomes_RO;
-
-            var i = 0;
-
-            while(i++ < count)
-            {
-                population.RemoveChromosome(population.Chromosomes_RO.Last());
             }
         }
 

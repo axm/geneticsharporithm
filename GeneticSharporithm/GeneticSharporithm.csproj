@@ -84,22 +84,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chromosome.cs" />
-    <Compile Include="ChromosomeComparer.cs" />
-    <Compile Include="GeneticAlgorithm.cs" />
-    <Compile Include="GeneticAlgorithmBuilder.cs" />
+    <Compile Include="Core\Chromosome.cs" />
+    <Compile Include="Core\ChromosomeComparer.cs" />
+    <Compile Include="Core\GeneticAlgorithm.cs" />
+    <Compile Include="Core\GeneticAlgorithmBuilder.cs" />
+    <Compile Include="CrossOver\StringDoublePointCrossOver.cs" />
+    <Compile Include="CrossOver\StringSinglePointCrossOver.cs" />
     <Compile Include="GeneticEventArgs.cs" />
-    <Compile Include="IChromosomeComparer.cs" />
-    <Compile Include="ICrossOver.cs" />
-    <Compile Include="IFitnessEvaluator.cs" />
-    <Compile Include="IKiller.cs" />
-    <Compile Include="IMutate.cs" />
-    <Compile Include="IPopulationGenerator.cs" />
-    <Compile Include="ISelection.cs" />
-    <Compile Include="ISolution.cs" />
-    <Compile Include="Population.cs" />
+    <Compile Include="Core\IChromosomeComparer.cs" />
+    <Compile Include="Core\ICrossOver.cs" />
+    <Compile Include="Core\IFitnessEvaluator.cs" />
+    <Compile Include="Core\IKiller.cs" />
+    <Compile Include="Core\IMutate.cs" />
+    <Compile Include="Core\IPopulationGenerator.cs" />
+    <Compile Include="Core\ISelection.cs" />
+    <Compile Include="Core\ISolution.cs" />
+    <Compile Include="Core\Population.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringGenerator.cs" />
+    <Compile Include="Generator\StringGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
