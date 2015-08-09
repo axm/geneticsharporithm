@@ -53,7 +53,7 @@ namespace GeneticSharporithm
             Solution = builder.Solution;
         }
 
-        public void Execute()
+        public void Run()
         {
             for (int i = 0; i < Generations; i++)
             {

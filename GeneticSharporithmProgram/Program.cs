@@ -51,7 +51,7 @@ namespace GeneticSharporithmProgram
 
             geneticAlgorithm.OnSolution += GeneticAlgorithm_OnSolution;
 
-            geneticAlgorithm.Execute();
+            geneticAlgorithm.Run();
 
         }
 
