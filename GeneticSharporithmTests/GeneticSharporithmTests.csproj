@@ -126,7 +126,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ChromosomeComparerTests.cs" />
-    <Compile Include="ChromosomeTests.cs" />
     <Compile Include="GeneticAlgorithmBuilderTests.cs" />
     <Compile Include="GeneticAlgorithmTests.cs" />
     <Compile Include="PopulationTests.cs" />
