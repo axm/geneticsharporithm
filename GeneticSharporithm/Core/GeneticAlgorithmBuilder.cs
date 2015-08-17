@@ -93,6 +93,22 @@ namespace GeneticSharporithm
             return this;
         }
 
+        /// <summary>
+        /// Creates an instance of <see cref="GeneticAlgorithm{V}"/>.
+        /// </summary>
+        /// <remarks>
+        /// The following fields are mandatory: <see cref="GeneticAlgorithmBuilder{U}.Population"/>,
+        /// <see cref="GeneticAlgorithmBuilder{U}.FitnessEvaluator"/>, <see cref="GeneticAlgorithmBuilder{U}.Killer"/>,
+        /// <see cref="GeneticAlgorithmBuilder{U}.CrossOver"/>, <see cref="GeneticAlgorithmBuilder{U}.Selector"/>,
+        /// <see cref="GeneticAlgorithmBuilder{U}.Solution"/>.
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when a mandatory component is missing.
+        /// </exception>
+        /// <returns>
+        /// An instance of <see cref="GeneticAlgorithm{V}"/> that uses the given
+        /// components. 
+        /// </returns>
         public GeneticAlgorithm<U> Build()
         {
             string message;
