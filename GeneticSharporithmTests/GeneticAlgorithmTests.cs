@@ -25,11 +25,7 @@ namespace GeneticSharporithm.Tests
             var fitnessEvaluator = new Mock<IFitnessEvaluator<string>>();
             var populationGenerator = new Mock<IPopulationGenerator<string>>();
             var population = new Mock<Population<string>>(Count, populationGenerator.Object, fitnessEvaluator.Object);
-
-            GeneticAlgorithm = new GeneticAlgorithmBuilder<string>()
-
-                .Build();
-
+            
         }
     }
 }
