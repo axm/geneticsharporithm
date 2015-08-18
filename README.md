@@ -28,9 +28,13 @@ var geneticAlgorithm = new GeneticAlgorithmBuilder<string>()
 	.SetKiller(killer)
 	.SetSolution(solution)
 	.Build();
+	
+geneticAlgorithm.Run();
 ```
+
+You may want to register the `OnSolution` event and potentially `AfterRun`.
 		
 The repo is split in the following sections:
-GeneticSharporithm - holds the library files: all relevant interfaces, the core component(s) that run the algorithm etc.
-GeneticSharporithmTests - test files for the library project
-GeneticSharporithmProgram - sample implementation, which includes a main method etc.
+* GeneticSharporithm - holds the library files: all relevant interfaces, the core component(s) that run the algorithm etc.
+* GeneticSharporithmTests - test files for the library project
+* GeneticSharporithmProgram - sample implementation, which includes a main method etc.
