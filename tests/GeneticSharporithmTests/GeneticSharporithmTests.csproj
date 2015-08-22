@@ -132,7 +132,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GeneticSharporithm\GeneticSharporithm.csproj">
+    <ProjectReference Include="..\..\src\GeneticSharporithm\GeneticSharporithm.csproj">
       <Project>{03E75699-6B85-4949-8F81-5A401520518A}</Project>
       <Name>GeneticSharporithm</Name>
     </ProjectReference>
