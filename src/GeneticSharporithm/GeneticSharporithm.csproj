@@ -84,24 +84,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\Core\Chromosome.cs" />
-    <Compile Include="src\Core\ChromosomeComparer.cs" />
-    <Compile Include="src\Core\GeneticAlgorithm.cs" />
-    <Compile Include="src\Core\GeneticAlgorithmBuilder.cs" />
-    <Compile Include="src\CrossOver\StringDoublePointCrossOver.cs" />
-    <Compile Include="src\CrossOver\StringSinglePointCrossOver.cs" />
-    <Compile Include="src\GeneticEventArgs.cs" />
-    <Compile Include="src\Core\IChromosomeComparer.cs" />
-    <Compile Include="src\Core\ICrossOver.cs" />
-    <Compile Include="src\Core\IFitnessEvaluator.cs" />
-    <Compile Include="src\Core\IKiller.cs" />
-    <Compile Include="src\Core\IMutate.cs" />
-    <Compile Include="src\Core\IPopulationGenerator.cs" />
-    <Compile Include="src\Core\ISelection.cs" />
-    <Compile Include="src\Core\ISolution.cs" />
-    <Compile Include="src\Core\Population.cs" />
+    <Compile Include="Core\Chromosome.cs" />
+    <Compile Include="Core\ChromosomeComparer.cs" />
+    <Compile Include="Core\GeneticAlgorithm.cs" />
+    <Compile Include="Core\GeneticAlgorithmBuilder.cs" />
+    <Compile Include="CrossOver\StringDoublePointCrossOver.cs" />
+    <Compile Include="CrossOver\StringSinglePointCrossOver.cs" />
+    <Compile Include="GeneticEventArgs.cs" />
+    <Compile Include="Core\IChromosomeComparer.cs" />
+    <Compile Include="Core\ICrossOver.cs" />
+    <Compile Include="Core\IFitnessEvaluator.cs" />
+    <Compile Include="Core\IKiller.cs" />
+    <Compile Include="Core\IMutate.cs" />
+    <Compile Include="Core\IPopulationGenerator.cs" />
+    <Compile Include="Core\ISelection.cs" />
+    <Compile Include="Core\ISolution.cs" />
+    <Compile Include="Core\Population.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Generator\StringGenerator.cs" />
+    <Compile Include="Generator\StringGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
