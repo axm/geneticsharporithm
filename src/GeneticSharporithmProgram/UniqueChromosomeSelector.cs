@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace GeneticSharporithmProgram
 {
+    /// <summary>
+    /// In this particular implementation chromosomes have at most one chance
+    /// of breeding per generation.
+    /// </summary>
     public class Selector : ISelection<string>
     {
         private readonly IFitnessEvaluator<string> FitnessEvaluator;
