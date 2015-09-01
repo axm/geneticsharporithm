@@ -31,7 +31,7 @@ namespace GeneticSharporithm
             return $"{Genes.ToString()}, {Fitness}";
         }
 
-        public bool Equals(T other)
+        public virtual bool Equals(T other)
         {
             Contract.Requires<ArgumentNullException>(other != null);
 
