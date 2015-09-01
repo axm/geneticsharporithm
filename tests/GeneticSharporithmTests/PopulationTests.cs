@@ -33,7 +33,7 @@ namespace GeneticSharporithm.Tests
         [Test]
         public void Constructor_WhenZeroCount_ThrowArgumentOutOfRangeException()
         {
-            Action action = () => new Population<string>(-1, PopulationGenerator.Object, FitnessEvaluator.Object);
+            Action action = () => new Population<string>(0, PopulationGenerator.Object, FitnessEvaluator.Object);
 
             action.ShouldThrow<ArgumentOutOfRangeException>();
         }
