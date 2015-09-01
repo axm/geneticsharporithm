@@ -27,7 +27,7 @@ namespace GeneticSharporithmProgram
 
             var crossOver = new SinglePointCrossOver(random, evaluator);
 
-            var selector = new Selector(evaluator, 10, Total);
+            var selector = new UniqueChromosomeSelector(evaluator, 10, Total);
 
             var killer = new ChromosomeKiller(5);
 

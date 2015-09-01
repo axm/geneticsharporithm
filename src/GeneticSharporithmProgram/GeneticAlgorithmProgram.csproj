@@ -90,7 +90,7 @@
   <ItemGroup>
     <Compile Include="ChromosomeKiller.cs" />
     <Compile Include="DoublePointCrossOver.cs" />
-    <Compile Include="Selector.cs" />
+    <Compile Include="Selectors\UniqueChromosomeSelector.cs" />
     <Compile Include="SinglePointCrossOver.cs" />
     <Compile Include="FitnessEvaluator.cs" />
     <Compile Include="Generator.cs" />

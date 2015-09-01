@@ -12,14 +12,14 @@ namespace GeneticSharporithmProgram
     /// In this particular implementation chromosomes have at most one chance
     /// of breeding per generation.
     /// </summary>
-    public class Selector : ISelection<string>
+    public class UniqueChromosomeSelector : ISelection<string>
     {
         private readonly IFitnessEvaluator<string> FitnessEvaluator;
         private readonly int Count;
         private readonly Random Random = new Random();
         private readonly int Total;
 
-        public Selector(IFitnessEvaluator<string> fitnessEvaluator, int count, int total)
+        public UniqueChromosomeSelector(IFitnessEvaluator<string> fitnessEvaluator, int count, int total)
         {
             Contract.Requires<ArgumentNullException>(fitnessEvaluator != null);
             Contract.Requires<ArgumentOutOfRangeException>(count > 0);
