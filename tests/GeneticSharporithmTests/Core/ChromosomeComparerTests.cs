@@ -11,9 +11,11 @@ using FluentAssertions;
 
 namespace GeneticSharporithm.Tests
 {
+    [TestFixture]
     public class ChromosomeComparerTests
     {
-        public void Compare_NullFirstParameter()
+        [Test]
+        public void Compare_NullFirstParameter_ThrowsArgumentNullException()
         {
             var chromosome = new Mock<Chromosome<string>>(string.Empty);
 
@@ -24,7 +26,8 @@ namespace GeneticSharporithm.Tests
             action.ShouldThrow<ArgumentNullException>("First parameter is null.");
         }
 
-        public void Compare_NullSecondParameter()
+        [Test]
+        public void Compare_NullSecondParameter_ThrowsArgumentNullException()
         {
             var chromosome = new Mock<Chromosome<string>>(string.Empty);
 
@@ -34,8 +37,15 @@ namespace GeneticSharporithm.Tests
 
             action.ShouldThrow<ArgumentNullException>("Second parameter is null.");
         }
-        
+
+        [Test]
         public void CompareTest()
+        {
+
+        }
+
+        [Test()]
+        public void CompareTest1()
         {
 
         }

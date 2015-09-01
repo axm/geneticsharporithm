@@ -125,7 +125,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ChromosomeComparerTests.cs" />
+    <Compile Include="Core\ChromosomeComparerTests.cs" />
+    <Compile Include="Core\ChromosomeTests.cs" />
+    <Compile Include="CrossOver\StringSinglePointCrossOverTests.cs" />
     <Compile Include="GeneticAlgorithmBuilderTests.cs" />
     <Compile Include="GeneticAlgorithmTests.cs" />
     <Compile Include="PopulationTests.cs" />
