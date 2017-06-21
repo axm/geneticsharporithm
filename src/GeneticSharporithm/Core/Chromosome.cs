@@ -21,7 +21,10 @@ namespace GeneticSharporithm
 
         public Chromosome(T genes, double Fitness)
         {
-            Contract.Requires<ArgumentNullException>(genes != null, "Genes cannot be null");
+            if(genes == null)
+            {
+                throw new ArgumentNullException($"{nameof(genes)} cannot be null.");
+            }
 
             Genes = genes;
         }
@@ -33,8 +36,6 @@ namespace GeneticSharporithm
 
         public virtual bool Equals(T other)
         {
-            Contract.Requires<ArgumentNullException>(other != null);
-
             return Genes.Equals(other);
         }
     }

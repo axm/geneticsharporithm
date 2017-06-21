@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GeneticAlgorithmProgramTests</RootNamespace>
     <AssemblyName>GeneticAlgorithmProgramTests</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -58,7 +58,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\GeneticSharporithmProgram\GeneticAlgorithmProgram.csproj">
+    <ProjectReference Include="..\..\src\GeneticSharporithmProgram\GeneticAlgorithmProgram.csproj">
       <Project>{33D141E5-215C-487A-A215-A9F188429B57}</Project>
       <Name>GeneticAlgorithmProgram</Name>
     </ProjectReference>
