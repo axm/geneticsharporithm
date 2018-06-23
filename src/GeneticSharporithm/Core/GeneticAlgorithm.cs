@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
+using GeneticSharporithm.Mutation;
 
 namespace GeneticSharporithm
 {
@@ -13,7 +14,7 @@ namespace GeneticSharporithm
         public int Generations { get; private set; }
         public Population<V> Population { get; private set; }
         public IFitnessEvaluator<V> Evaluator { get; private set; }
-        public IMutate<V> Mutator { get; private set; }
+        public IMutator<V> Mutator { get; private set; }
         public ICrossOver<V> CrossOver { get; private set; }
         public ISelection<V> Selector { get; private set; }
         public IKiller<V> Killer { get; private set; }
@@ -57,72 +58,45 @@ namespace GeneticSharporithm
         {
             for (int i = 0; i < Generations; i++)
             {
-                if(BeforeRun != null)
-                {
-                    BeforeRun(this, new GeneticEventArgs(i));
-                }
+                BeforeRun?.Invoke(this, new GeneticEventArgs(i));
 
-                foreach(var chromosome in Population.Chromosomes)
+                foreach (var chromosome in Population.Chromosomes)
                 {
                     chromosome.Fitness = Evaluator.ComputeFitness(chromosome.Genes);
                 }
 
                 Population.Chromosomes = Population.Chromosomes.OrderByDescending(x => x.Fitness).ToList();
 
-                if (BeforeKill != null)
-                {
-                    BeforeKill(this, EventArgs.Empty);
-                }
-                
+                BeforeKill?.Invoke(this, EventArgs.Empty);
+
                 Killer.Kill(Population);
-                
-                if(AfterKill != null)
-                {
-                    AfterKill(this, EventArgs.Empty);
-                }
+
+                AfterKill?.Invoke(this, EventArgs.Empty);
 
                 var selected = Selector.Select(Population.Chromosomes);
 
-                if (BeforeCrossOver != null)
-                {
-                    BeforeCrossOver(this, EventArgs.Empty);
-                }
+                BeforeCrossOver?.Invoke(this, EventArgs.Empty);
 
-                foreach(var pair in selected)
+                foreach (var pair in selected)
                 {
                     var offspring = CrossOver.CrossOver(pair.Item1, pair.Item2);
 
                     Population.AddChromosome(offspring);
                 }
 
-                if(AfterCrossOver != null)
-                {
-                    AfterCrossOver(this, EventArgs.Empty);
-                }
+                AfterCrossOver?.Invoke(this, EventArgs.Empty);
 
-                if(BeforeMutate != null)
-                {
-                    BeforeMutate(this, EventArgs.Empty);
-                }
+                BeforeMutate?.Invoke(this, EventArgs.Empty);
 
                 MutateStep(Population);
 
-                if(AfterMutate != null)
-                {
-                    AfterMutate(this, EventArgs.Empty);
-                }
+                AfterMutate?.Invoke(this, EventArgs.Empty);
 
-                if(AfterRun != null)
-                {
-                    AfterRun(this, new GeneticEventArgs(i));
-                }
-                
+                AfterRun?.Invoke(this, new GeneticEventArgs(i));
+
                 if (Solution.IsSolution(Population.Best))
                 {
-                    if (OnSolution != null)
-                    {
-                        OnSolution(this, EventArgs.Empty);
-                    }
+                    OnSolution?.Invoke(this, EventArgs.Empty);
 
                     return;
                 }

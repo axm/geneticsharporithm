@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
+using GeneticSharporithm.Mutation;
 
 namespace GeneticSharporithm
 {
@@ -9,7 +10,7 @@ namespace GeneticSharporithm
         public double MutationRate { get; private set; }
 
         public Population<U> Population { get; private set; }
-        public IMutate<U> Mutator { get; private set; }
+        public IMutator<U> Mutator { get; private set; }
         public ICrossOver<U> CrossOver { get; private set; }
         public IFitnessEvaluator<U> FitnessEvaluator { get; private set; }
         public IKiller<U> Killer { get; private set; }
@@ -43,7 +44,7 @@ namespace GeneticSharporithm
             return this;
         }
 
-        public GeneticAlgorithmBuilder<U> SetMutator(IMutate<U> mutator)
+        public GeneticAlgorithmBuilder<U> SetMutator(IMutator<U> mutator)
         {
             Contract.Requires<ArgumentNullException>(mutator != null, "Argument cannot be null.");
 

@@ -3,4 +3,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>x64</Platforms>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneticSharporithm.Mutation\GeneticSharporithm.Mutation.csproj" />
+    <ProjectReference Include="..\GeneticSharporithm.Selection\GeneticSharporithm.Selection.csproj" />
+  </ItemGroup>
 </Project>

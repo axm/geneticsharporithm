@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithmProgram", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticSharporithm", "src\GeneticSharporithm\GeneticSharporithm.csproj", "{03E75699-6B85-4949-8F81-5A401520518A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticSharporithm.Mutation", "src\GeneticSharporithm.Mutation\GeneticSharporithm.Mutation.csproj", "{7380E158-489C-4EDD-8597-E69D17581583}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticSharporithm.Selection", "src\GeneticSharporithm.Selection\GeneticSharporithm.Selection.csproj", "{04F8FF76-C5D5-47E5-A946-E60B22ECDEB4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticSharporithm.Core", "src\GeneticSharporithm.Core\GeneticSharporithm.Core.csproj", "{A9A20702-DF93-4826-B834-F5FAC17659AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +23,18 @@ Global
 		{33D141E5-215C-487A-A215-A9F188429B57}.Release|Any CPU.ActiveCfg = Release|x64
 		{03E75699-6B85-4949-8F81-5A401520518A}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{03E75699-6B85-4949-8F81-5A401520518A}.Release|Any CPU.ActiveCfg = Release|x64
+		{7380E158-489C-4EDD-8597-E69D17581583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7380E158-489C-4EDD-8597-E69D17581583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7380E158-489C-4EDD-8597-E69D17581583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7380E158-489C-4EDD-8597-E69D17581583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F8FF76-C5D5-47E5-A946-E60B22ECDEB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F8FF76-C5D5-47E5-A946-E60B22ECDEB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F8FF76-C5D5-47E5-A946-E60B22ECDEB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F8FF76-C5D5-47E5-A946-E60B22ECDEB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9A20702-DF93-4826-B834-F5FAC17659AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9A20702-DF93-4826-B834-F5FAC17659AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9A20702-DF93-4826-B834-F5FAC17659AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9A20702-DF93-4826-B834-F5FAC17659AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GeneticSharporithm.Core;
 
-namespace GeneticSharporithm
+namespace GeneticSharporithm.Mutation
 {
     /// <summary>
     /// Interface for mutating a chromosome.
     /// </summary>
-    public interface IMutate<T>
+    public interface IMutator<T>
     {
         /// <summary>
         /// "Mutates" the given <paramref name="chromosome"/> to produce another chromosome.

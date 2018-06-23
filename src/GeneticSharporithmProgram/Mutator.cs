@@ -1,13 +1,10 @@
-﻿using GeneticSharporithm;
+﻿using GeneticSharporithm.Core;
+using GeneticSharporithm.Mutation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeneticSharporithmProgram
 {
-    public class Mutator : IMutate<string>
+    public class Mutator : IMutator<string>
     {
         public Chromosome<string> Mutate(Chromosome<string> chromosome)
         {

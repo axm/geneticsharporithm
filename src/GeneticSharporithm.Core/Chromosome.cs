@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GeneticSharporithm
+namespace GeneticSharporithm.Core
 {
     public class Chromosome<T> : IEquatable<T>
     {
