@@ -5,7 +5,6 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GeneticSharporithm.Core\GeneticSharporithm.Core.csproj" />
     <ProjectReference Include="..\GeneticSharporithm.Mutation\GeneticSharporithm.Mutation.csproj" />
     <ProjectReference Include="..\GeneticSharporithm.Selection\GeneticSharporithm.Selection.csproj" />
     <ProjectReference Include="..\GeneticSharporithm\GeneticSharporithm.csproj" />

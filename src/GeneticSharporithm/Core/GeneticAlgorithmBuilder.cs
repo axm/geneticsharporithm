@@ -112,9 +112,7 @@ namespace GeneticSharporithm
         /// </returns>
         public GeneticAlgorithm<U> Build()
         {
-            string message;
-
-            if (!IsValid(out message))
+            if (!IsValid(out string message))
             {
                 throw new InvalidOperationException(message);
             }
