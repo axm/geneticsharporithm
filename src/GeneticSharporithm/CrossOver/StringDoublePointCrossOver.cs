@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace GeneticSharporithm.CrossOvers
 {
     /// <summary>
-    /// 
+    /// .
     /// </summary>
     public sealed class StringDoublePointCrossOver : ICrossOver<string>
     {
