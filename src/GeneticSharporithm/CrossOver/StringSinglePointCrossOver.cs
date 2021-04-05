@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GeneticSharporithm.Core;
+using System;
 
 namespace GeneticSharporithm.CrossOvers
 {
@@ -27,17 +24,8 @@ namespace GeneticSharporithm.CrossOvers
             Evaluator = evaluator;
         }
 
-        public Chromosome<string> CrossOver(Chromosome<string> parent1, Chromosome<string> parent2)
+        private Chromosome<string> CrossOver(in Chromosome<string> parent1, in Chromosome<string> parent2)
         {
-            if(parent1 == null)
-            {
-                throw new ArgumentNullException($"{nameof(parent1)}");
-            }
-
-            if(parent2 == null)
-            {
-                throw new ArgumentNullException($"{nameof(parent2)}");
-            }
 
             if(parent1.Genes.Length != parent2.Genes.Length)
             {
@@ -56,10 +44,13 @@ namespace GeneticSharporithm.CrossOvers
                 newChars[i] = i >= index ? parent2Genes[i] : parent1Genes[i];
             }
 
-            var chromosome = new Chromosome<string>(new string(newChars));
-            chromosome.Fitness = Evaluator.ComputeFitness(chromosome.Genes);
+            var genes = new string(newChars);
+            return new Chromosome<string>(genes, Evaluator.ComputeFitness(genes));
+        }
 
-            return chromosome;
+        public State<string> CrossOver(in State<string> state)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace GeneticSharporithm
     /// <summary>
     /// Represents the selection step of a genetic algorithm.
     /// </summary>
-    public interface ISelection<V>
+    public interface ISelection<V> where V: class
     {
         /// <summary>
         /// 

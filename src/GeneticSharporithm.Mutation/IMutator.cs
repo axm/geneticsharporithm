@@ -1,17 +1,13 @@
 ﻿using GeneticSharporithm.Core;
+using System;
 
 namespace GeneticSharporithm.Mutation
 {
     /// <summary>
     /// Interface for mutating a chromosome.
     /// </summary>
-    public interface IMutator<T>
+    public interface IMutator<T> where T: class
     {
-        /// <summary>
-        /// "Mutates" the given <paramref name="chromosome"/> to produce another chromosome.
-        /// </summary>
-        /// <param name="chromosome">A chromosome that should be mutated.</param>
-        /// <returns>The result of mutation applied to the given <paramref name="chromosome"/>.</returns>
-        Chromosome<T> Mutate(Chromosome<T> chromosome);
+        State<T> Mutate(State<T> state);
     }
 }

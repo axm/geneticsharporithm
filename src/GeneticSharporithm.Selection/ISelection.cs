@@ -7,7 +7,7 @@ namespace GeneticSharporithm.Selection
     /// <summary>
     /// Represents the selection step of a genetic algorithm.
     /// </summary>
-    public interface ISelection<V>
+    public interface ISelection<T> where T: class
     {
         /// <summary>
         /// 
@@ -17,6 +17,6 @@ namespace GeneticSharporithm.Selection
         /// <remarks>
         /// <paramref name="chromosomes"/> must have at least one element.
         /// </remarks>
-        IEnumerable<Tuple<Chromosome<V>, Chromosome<V>>> Select(IList<Chromosome<V>> chromosomes);
+        IEnumerable<Tuple<Chromosome<T>, Chromosome<T>>> Select(IList<Chromosome<T>> chromosomes);
     }
 }

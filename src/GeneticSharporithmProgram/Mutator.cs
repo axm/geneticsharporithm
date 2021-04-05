@@ -1,12 +1,34 @@
-﻿using GeneticSharporithm.Core;
+﻿using GeneticSharporithm;
+using GeneticSharporithm.Core;
 using GeneticSharporithm.Mutation;
 using System;
+using System.Collections.Generic;
 
 namespace GeneticSharporithmProgram
 {
     public class Mutator : IMutator<string>
     {
-        public Chromosome<string> Mutate(Chromosome<string> chromosome)
+        private Random Random = new Random();
+        private readonly Func<State<string>, int> MutatorCount;
+        private readonly IFitnessEvaluator<string> Evaluator;
+
+        public Mutator(Func<State<string>, int> mutatorCount, IFitnessEvaluator<string> evaluator)
+        {
+            if (mutatorCount == null)
+            {
+                throw new ArgumentNullException(nameof(mutatorCount));
+            }
+
+            if (evaluator == null)
+            {
+                throw new System.ArgumentNullException(nameof(evaluator));
+            }
+
+            MutatorCount = mutatorCount;
+            Evaluator = evaluator;
+        }
+
+        private  Chromosome<string> Mutate(Chromosome<string> chromosome)
         {
             var genes = chromosome.Genes;
 
@@ -22,7 +44,41 @@ namespace GeneticSharporithmProgram
             var chars = genes.ToCharArray();
             chars[index] = newCharacter;
 
-            return new Chromosome<string>(new string(chars));
+            var newGenes = new string(chars);
+            return new Chromosome<string>(new string(chars), Evaluator.ComputeFitness(newGenes));
+        }
+
+        public State<string> Mutate(State<string> state) // TODO in?
+        {
+            var cutoff = Random.NextDouble();
+
+            var maxCount = MutatorCount.Invoke(state);
+            if (maxCount == 0)
+            {
+                return state;
+            }
+
+            var selected = new bool[state.Chromosomes.Length];
+            var count = 0;
+            var chromosomes = new List<Chromosome<string>>();
+
+            while (count < maxCount)
+            {
+                var index = Random.Next(0, state.Chromosomes.Length - 1);
+                if (selected[index])
+                {
+                    continue;
+                }
+
+                selected[index] = true;
+                count++;
+
+                var chromosome = state.Chromosomes[index];
+                chromosomes.Remove(chromosome);
+                state = state.AddChromosome(Mutate(chromosome));
+            }
+
+            return state;
         }
     }
 }

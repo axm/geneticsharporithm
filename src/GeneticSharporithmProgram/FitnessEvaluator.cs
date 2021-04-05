@@ -1,18 +1,19 @@
 ﻿using GeneticSharporithm;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeneticSharporithmProgram
 {
     public class FitnessEvaluator : IFitnessEvaluator<string>
     {
-        public string Target { get; private set; }
+        public string Target { get; }
 
         public FitnessEvaluator(string target)
         {
+            if (string.IsNullOrWhiteSpace(target))
+            {
+                throw new System.ArgumentException($"{nameof(target)} cannot be null or whitespace.");
+            }
+
             Target = target;
         }
 
@@ -23,6 +24,11 @@ namespace GeneticSharporithmProgram
         /// </summary>
         public double ComputeFitness(string genes)
         {
+            if (string.IsNullOrWhiteSpace(genes))
+            {
+                throw new ArgumentException($"{nameof(genes)} cannot be null or whitespace.");
+            }
+
             var evaluation = 0d;
             
             // assuming both genes and target have same length

@@ -1,36 +1,35 @@
 ﻿using GeneticSharporithm;
+using GeneticSharporithm.Core;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeneticSharporithmProgram
 {
     public class ChromosomeKiller : IKiller<string>
     {
-        public readonly int Count;
+        private Func<State<string>, int> KillCountFormula { get; }
 
-        public ChromosomeKiller(int count)
+        public ChromosomeKiller(Func<State<string>, int> killCountFormula)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(count > 0);
+            if (killCountFormula == null)
+            {
+                throw new ArgumentNullException(nameof(killCountFormula));
+            }
 
-            Count = count;
+            KillCountFormula = killCountFormula;
         }
 
-        public void Kill(Population<string> population)
+        public State<string> Kill(State<string> state)
         {
-            Contract.Requires<ArgumentNullException>(population != null);
-
-            var chromosomes = population.Chromosomes_RO;
-
-            var i = 0;
-
-            while (i++ < Count)
+            var count = KillCountFormula.Invoke(state);
+            if (count == 0)
             {
-                population.RemoveChromosome(population.Chromosomes_RO.Last());
+                return state;
             }
+
+            var survivors = state.Chromosomes.Take(state.Chromosomes.Length - count);
+
+            return State<string>.FromChromosomes(survivors);
         }
     }
 }

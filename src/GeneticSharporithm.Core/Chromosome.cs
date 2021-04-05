@@ -2,36 +2,37 @@
 
 namespace GeneticSharporithm.Core
 {
-    public class Chromosome<T> : IEquatable<T>
+    public struct Chromosome<T> : IComparable<Chromosome<T>>, IEquatable<T> where T: class
     {
-        // TODO: Make this readonly
-        public T Genes { get; private set; }
+        public T Genes { get; }
+        public double Fitness { get; }
 
-        // TODO: Make this readonly
-        public double Fitness { get; set; }
-
-        public Chromosome(T genes) : this(genes, 0)
-        {
-        }
-
-        public Chromosome(T genes, double Fitness)
+        public Chromosome(T genes, double fitness)
         {
             if(genes == null)
             {
                 throw new ArgumentNullException($"{nameof(genes)} cannot be null.");
             }
 
+            if (fitness < 0)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(fitness)} must be zero or positive.");
+            }    
+
             Genes = genes;
+            Fitness = fitness;
         }
 
         public override string ToString()
         {
-            return $"{Genes.ToString()}, {Fitness}";
+            return $"({Genes} = {Fitness})";
         }
 
-        public virtual bool Equals(T other)
+        public bool Equals(T other)
         {
             return Genes.Equals(other);
         }
+
+        public int CompareTo(Chromosome<T> other) => Fitness.CompareTo(other.Fitness);
     }
 }

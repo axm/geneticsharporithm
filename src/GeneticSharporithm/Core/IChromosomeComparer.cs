@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GeneticSharporithm.Core;
 
 namespace GeneticSharporithm
 {
-    public interface IChromosomeComparer<T>
+    public interface IChromosomeComparer<T> where T: class
     {
         /// <summary>
         /// Compares the two given chromosomes and returns a number that signifies

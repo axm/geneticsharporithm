@@ -10,8 +10,8 @@ namespace GeneticSharporithm
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="V"></typeparam>
-    public interface ISolution<V>
+    /// <typeparam name="T"></typeparam>
+    public interface ISolution<T> where T: class
     {
         /// <summary>
         /// Checks whether the specified chromosome is the solution to the problem.
@@ -21,6 +21,6 @@ namespace GeneticSharporithm
         /// true if the specified chromosome is the solution to the problem,
         /// false otherwise.
         /// </returns>
-        bool IsSolution(Chromosome<V> chromosome);
+        bool IsSolution(Chromosome<T> chromosome);
     }
 }

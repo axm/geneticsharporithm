@@ -1,41 +1,28 @@
-﻿using System;
-using System.Diagnostics.Contracts;
+﻿using GeneticSharporithm.Core;
 using GeneticSharporithm.Mutation;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace GeneticSharporithm
 {
-    public class GeneticAlgorithmBuilder<U>
+    public class GeneticAlgorithmBuilder<T> where T: class
     {
-        public int Generations { get; private set; }
         public double MutationRate { get; private set; }
 
-        public Population<U> Population { get; private set; }
-        public IMutator<U> Mutator { get; private set; }
-        public ICrossOver<U> CrossOver { get; private set; }
-        public IFitnessEvaluator<U> FitnessEvaluator { get; private set; }
-        public IKiller<U> Killer { get; private set; }
-        public ISelection<U> Selector { get; private set; }
-        public ISolution<U> Solution { get; private set; }
+        public IMutator<T> Mutator { get; private set; }
+        public ICrossOver<T> CrossOver { get; private set; }
+        public IKiller<T> Killer { get; private set; }
+        public State<T> Population { get; private set; }
 
-        public GeneticAlgorithmBuilder<U> SetPopulation(Population<U> population)
+        public GeneticAlgorithmBuilder<T> SetPopulation(IEnumerable<Chromosome<T>> population)
         {
-            Contract.Requires<ArgumentNullException>(population != null, "Argument cannot be null.");
-
-            Population = population;
+            Population = State<T>.FromChromosomes(population);
 
             return this;
         }
 
-        public GeneticAlgorithmBuilder<U> SetGenerations(int generations)
-        {
-            Contract.Requires<ArgumentOutOfRangeException>(generations > 0, "Number of generations cannot be zero or negative.");
-
-            Generations = generations;
-
-            return this;
-        }
-
-        public GeneticAlgorithmBuilder<U> SetMutationRate(double mutationRate)
+        public GeneticAlgorithmBuilder<T> SetMutationRate(double mutationRate)
         {
             Contract.Requires<ArgumentOutOfRangeException>(mutationRate >= 0 && mutationRate <= 1, "Mutation rate must be in [0, 1]");
 
@@ -44,52 +31,38 @@ namespace GeneticSharporithm
             return this;
         }
 
-        public GeneticAlgorithmBuilder<U> SetMutator(IMutator<U> mutator)
+        public GeneticAlgorithmBuilder<T> SetMutator(IMutator<T> mutator)
         {
-            Contract.Requires<ArgumentNullException>(mutator != null, "Argument cannot be null.");
+            if (mutator == null)
+            {
+                throw new System.ArgumentNullException(nameof(mutator));
+            }
 
             Mutator = mutator;
 
             return this;
         }
 
-        public GeneticAlgorithmBuilder<U> SetCrossOver(ICrossOver<U> crossOver)
+        public GeneticAlgorithmBuilder<T> SetCrossOver(ICrossOver<T> crossOver)
         {
-            Contract.Requires<ArgumentNullException>(crossOver != null, "Argument cannot be null.");
+            if (crossOver == null)
+            {
+                throw new System.ArgumentNullException(nameof(crossOver));
+            }
 
             CrossOver = crossOver;
 
             return this;
         }
 
-        public GeneticAlgorithmBuilder<U> SetFitnessEvaluator(IFitnessEvaluator<U> fitnessEvaluator)
+        public GeneticAlgorithmBuilder<T> SetKiller(IKiller<T> killer)
         {
-            Contract.Requires<ArgumentNullException>(fitnessEvaluator != null, "Argument cannot be null.");
-
-            FitnessEvaluator = fitnessEvaluator;
-
-            return this;
-        }
-        
-        public GeneticAlgorithmBuilder<U> SetSelection(ISelection<U> selection)
-        {
-            Selector = selection;
-
-            return this;
-        }
-
-        public GeneticAlgorithmBuilder<U> SetKiller(IKiller<U> killer)
-        {
-            Contract.Requires<ArgumentNullException>(killer != null, "Killer cannot be null.");
+            if (killer == null)
+            {
+                throw new System.ArgumentNullException(nameof(killer));
+            }
 
             Killer = killer;
-
-            return this;
-        }
-
-        public GeneticAlgorithmBuilder<U> SetSolution(ISolution<U> solution)
-        {
-            Solution = solution;
 
             return this;
         }
@@ -110,40 +83,19 @@ namespace GeneticSharporithm
         /// An instance of <see cref="GeneticAlgorithm{V}"/> that uses the given
         /// components. 
         /// </returns>
-        public GeneticAlgorithm<U> Build()
+        public GeneticAlgorithm<T> Build()
         {
             if (!IsValid(out string message))
             {
                 throw new InvalidOperationException(message);
             }
 
-            return new GeneticAlgorithm<U>(this);
+            return new GeneticAlgorithm<T>(this);
         }
 
         private bool IsValid(out string message)
         {
             message = null;
-
-            if(Population == null)
-            {
-                message = "Population not set.";
-
-                return false;
-            }
-
-            if (Generations <= 0)
-            {
-                message = "Generations count must be positive";
-
-                return false;
-            }
-            
-            if(FitnessEvaluator == null)
-            {
-                message = "Fitness evaluator not set.";
-
-                return false;
-            }
 
             if (Killer == null)
             {
@@ -152,23 +104,9 @@ namespace GeneticSharporithm
                 return false;
             }
 
-            if(CrossOver == null)
+            if (CrossOver == null)
             {
                 message = "CrossOver not set.";
-
-                return false;
-            }
-
-            if(Selector == null)
-            {
-                message = "Selection not set.";
-
-                return false;
-            }
-
-            if(Solution == null)
-            {
-                message = "Solution not set.";
 
                 return false;
             }

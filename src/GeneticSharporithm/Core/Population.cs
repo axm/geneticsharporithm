@@ -1,15 +1,11 @@
 ﻿using GeneticSharporithm.Core;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeneticSharporithm
 {
-    public class Population<T>
+    [Obsolete("Use state instead")]
+    public class Population<T> where T: class
     {
         // TODO: This should be hidden or read only
         public IList<Chromosome<T>> Chromosomes { get; set; } = new List<Chromosome<T>>();
@@ -18,23 +14,6 @@ namespace GeneticSharporithm
         /// Represents how big this population should be.
         /// </summary>
         public readonly int TargetSize;
-        private IFitnessEvaluator<T> Evaluator { get; set; }
-
-        public int ChromosomeCount
-        {
-            get
-            {
-                return Chromosomes.Count;
-            }
-        }
-
-        public IReadOnlyList<Chromosome<T>> Chromosomes_RO
-        {
-            get
-            {
-                return new ReadOnlyCollection<Chromosome<T>>(Chromosomes);
-            }
-        }
 
         /// <summary>
         /// Searches and returns the best chromosome of this population. The fitness
@@ -66,45 +45,33 @@ namespace GeneticSharporithm
 
         public Population(int count, IPopulationGenerator<T> generator, IFitnessEvaluator<T> evaluator)
         {
-            Contract.Requires<ArgumentOutOfRangeException>(count > 0);
-            Contract.Requires<ArgumentNullException>(generator != null);
-            Contract.Requires<ArgumentNullException>(evaluator != null);
+            if (count <= 0)
+            {
+                throw new ArgumentException($"{nameof(count)} must be greater than 0. Actual: {count}.");
+            }
+
+            if (generator == null)
+            {
+                throw new System.ArgumentNullException(nameof(generator));
+            }
+
+            if (evaluator == null)
+            {
+                throw new System.ArgumentNullException(nameof(evaluator));
+            }
 
             TargetSize = count;
-            Evaluator = evaluator;
 
             // TODO: This really shouldn't be here. We should instead pass the 
             // population
             for(var i = 0; i < count; i++)
             {
                 var value = generator.Generate();
-                var chromosome = new Chromosome<T>(value);
-                chromosome.Fitness = evaluator.ComputeFitness(chromosome.Genes);
+                var fitness = evaluator.ComputeFitness(value);
+                var chromosome = new Chromosome<T>(value, fitness);
 
                 Chromosomes.Add(chromosome);
             }
-        }
-
-        public Population(IEnumerable<Chromosome<T>> chromosomes)
-        {
-            Contract.Requires<ArgumentNullException>(chromosomes != null);
-
-            Chromosomes = chromosomes.ToList();
-            TargetSize = Chromosomes.Count;
-        }
-
-        public void AddChromosome(Chromosome<T> chromosome)
-        {
-            Contract.Requires<ArgumentNullException>(chromosome != null, "Chromosome cannot be null.");
-
-            Chromosomes.Add(chromosome);
-        }
-
-        public void RemoveChromosome(Chromosome<T> chromosome)
-        {
-            Contract.Requires<ArgumentNullException>(chromosome != null, "Chromosome cannot be null.");
-
-            Chromosomes.Remove(chromosome);
         }
     }
 }

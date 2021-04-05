@@ -1,4 +1,5 @@
 ﻿using GeneticSharporithm;
+using GeneticSharporithm.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -21,9 +22,10 @@ namespace GeneticSharporithmProgram
 
         public UniqueChromosomeSelector(IFitnessEvaluator<string> fitnessEvaluator, int count, int total)
         {
-            Contract.Requires<ArgumentNullException>(fitnessEvaluator != null);
-            Contract.Requires<ArgumentOutOfRangeException>(count > 0);
-            Contract.Requires<ArgumentOutOfRangeException>(total > 0);
+            if (fitnessEvaluator == null)
+            {
+                throw new System.ArgumentNullException(nameof(fitnessEvaluator));
+            }
 
             FitnessEvaluator = fitnessEvaluator;
             Count = count;
