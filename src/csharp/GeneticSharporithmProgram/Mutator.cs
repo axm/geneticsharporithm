@@ -80,5 +80,10 @@ namespace GeneticSharporithmProgram
 
             return state;
         }
+
+        Chromosome<string> IMutator<string>.Mutate(Chromosome<string> chromosome)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Core.fs" />
+    <Compile Include="Killer.fs" />
+    <Compile Include="Mutation.fs" />
+    <Compile Include="Crossover.fs" />
+    <Compile Include="Fitness.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
